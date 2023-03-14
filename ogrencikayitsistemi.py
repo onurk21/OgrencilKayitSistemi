@@ -1,9 +1,15 @@
-ogrenciListesi = [] # Boş bir öğrenci listesi tanımlanıyor. Liste kullanıcıdan alınan veriye göre artacak.
+ogrenciListesi = []
+indeks = 1
 
-def ogrenciEkle(): # Yeni bir öğrenci ekleme işlemini gerçekleştirir.
-    isimSoyisim = input("Öğrencinin adı soyadı: ")
-    ogrenciListesi.append(isimSoyisim)
-    print(f"{isimSoyisim} isimli öğrenci listeye eklendi.")
+def ogrenciEkle():
+    global indeks
+    isimSoyisim = input("Eklemek istediğiniz öğrencinin adını ve soyadını giriniz: ")
+    isimSoyisim.title()
+    ogrenci = {"ad": isimSoyisim, "indeks": indeks}
+    ogrenciListesi.append(ogrenci)
+    print(f"{isimSoyisim} isimli öğrenci listeye eklendi. Numarası: {indeks}")
+    indeks += 1
+
 
 def ogrenciSil(): # Var olan bir öğrenciyi listeden silme işlemini gerçekleştirir.
     isimSoyisim = input("Silmek istediğiniz öğrencinin adı soyadı: ")
@@ -28,18 +34,18 @@ def cokluOgrenciEkle():
         else:
             print("Geçersiz seçim.")
             
-# Öğrenci listesindeki tüm öğrencilerin adı soyadı ekrana yazdırılır.
+        
 def listeYazdir():
     print("Öğrenci listesi:")
     for ogrenci in ogrenciListesi:
-        print(ogrenci)
-        
+        print(f"{ogrenci['indeks']}. {ogrenci['ad']}")
+
 # Kullanıcının girdiği isim soyisime sahip öğrencinin numarası ekrana yazdırılır.
 def ogrenciNoBul():
-    isimSoyisim = input("Öğrencinin adı soyadı: ")
+    isimSoyisim = input("Aramak istediğiniz öğrencinin adı soyadı: ")
     if isimSoyisim in ogrenciListesi:
         indeks = ogrenciListesi.index(isimSoyisim)
-        print(f"{isimSoyisim} isimli öğrencinin numarası: {indeks+1}")
+        print(f"{isimSoyisim} isimli öğrencinin numarası: {indeks}")
     else:
         print(f"{isimSoyisim} isimli öğrenci listede bulunamadı.")
 
@@ -73,22 +79,38 @@ def ogrenciAra():
         print(f"{len(eslesenOgrenciler)} eşleşme bulundu:")
         for ogrenci in eslesenOgrenciler:
             print(ogrenci)
-#Liste halinde öğrenci sıralama işlemini gerçekleştirir.
-def ogrenciSirala():
-    for i, ogrenci in enumerate(ogrenciListesi):
-        print(f"{i}: {ogrenci}")
-#Kullanıcının girdiği veriye istinaden öğrenci adının güncellenmesini sağlanmaktadır.       
-def ogrenciGuncelle():
-    ogrenciAdi = input("Bilgilerini güncellemek istediğiniz öğrencinin adı soyadı: ")
-    if ogrenciAdi not in ogrenciListesi:
-        print(f"{ogrenciAdi} isimli öğrenci listede bulunamadı.")
-        return
-    yeniBilgi = input("Yeni ad veya numara: ")
-    ogrenciIndex = ogrenciListesi.index(ogrenciAdi)
-    ogrenciListesi[ogrenciIndex] = yeniBilgi
-    print(f"{ogrenciAdi} isimli öğrencinin bilgileri güncellendi.")
 
+
+#Kullanıcının girdiği veriye istinaden öğrenci adının güncellenmesini sağlanmaktadır. 
+      
+def ogrenciAdiGuncelle():
+    eskiAdSoyad = input("Güncellemek istediğiniz öğrencinin adı soyadı: ")
+    if eskiAdSoyad in ogrenciListesi:
+        yeniAdSoyad = input("Yeni adı soyadı: ")
+        ogrenciListesi[ogrenciListesi.index(eskiAdSoyad)] = yeniAdSoyad
+        print(f"{eskiAdSoyad} adlı öğrencinin adı soyadı {yeniAdSoyad} olarak güncellendi.")
+    else:
+        print(f"{eskiAdSoyad} adlı öğrenci listede bulunamadı.")
+
+
+def ogrenci_bul(indeks, ogrenciListesi):
+    for ogrenci in ogrenciListesi:
+        if ogrenci['indeks'] == indeks:
+            return ogrenci
+    return None
+#Ögrenci isminden ögrencinin numarasını bulma indekse göre bulma işlemi yapar. İndeks varsayılan başlangıcı1 olarak alınmıştır.
+def ogrenci_bul2():
+    indeks = int(input("Öğrenci numarasını girin: "))
+    ogrenci = ogrenci_bul(indeks, ogrenciListesi)
+    if ogrenci:
+        print("Öğrenci adı:", ogrenci['ad'])
+    else:
+        print(f"{indeks} numaralı öğrenci bulunamadı.")
+
+
+#Menüleme işlemi yapmaktadır.
 while True:
+    print("Bu menüden istediğiniz işleve ait numarayı secebilirsiniz. Yapmak istediğiniz işleme ait numarayı yazınız lütfen.")
     print("1 - Öğrenci ekle")
     print("2 - Öğrenci sil")
     print("3 - Çoklu öğrenci ekle")
@@ -98,7 +120,8 @@ while True:
     print("7 - Öğrenci listele")
     print("8 - Öğrenci numarası bul")
     print("9 - Öğrenci bilgileri güncelle")
-    print("10 - Çıkış yap")
+    print("10 - Öğrenci numarasından ögrenci adını ve soyadını bulma")
+    print("11 - Çıkış yap")
     secim = input("Seçiminiz: ")
     if secim == "1":
         ogrenciEkle()
@@ -117,8 +140,11 @@ while True:
     elif secim == "8":
         ogrenciNoBul()
     elif secim == "9":
-        ogrenciGuncelle()
+        ogrenciAdiGuncelle()
     elif secim == "10":
+        ogrenci_bul2()
+    
+    elif secim == "11":
         break
     else:
         print("Geçersiz seçim.")
