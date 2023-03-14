@@ -34,7 +34,7 @@ def cokluOgrenciEkle():
         else:
             print("Geçersiz seçim.")
             
-        
+#Öğrencilerin listesi ekrana yazdırılır numarası ile birlikte. numarayı indeks olarak almakta varsayılan başlangıç indeksi 1 olarak alınmıştır.        
 def listeYazdir():
     print("Öğrenci listesi:")
     for ogrenci in ogrenciListesi:
