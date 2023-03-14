@@ -1,0 +1,2 @@
+# OgrencilKay-tSistemi
+ kayıt sistemi
