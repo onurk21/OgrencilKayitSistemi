@@ -111,10 +111,10 @@ def ogrenci_bul2():
 #Menüleme işlemi yapmaktadır.
 while True:
     print("Bu menüden istediğiniz işleve ait numarayı secebilirsiniz. Yapmak istediğiniz işleme ait numarayı yazınızzz")
-    print("1 - Öğrenci ekle")
-    print("2 - Öğrenci sil")
-    print("3 - Çoklu öğrenci ekle")
-    print("4 - Çoklu öğrenci sil")
+    print("1 - Öğrenci ekleme işlemi yap")
+    print("2 - Öğrenci silme işlemi yap")
+    print("3 - Çoklu öğrenci ekleme işlemi yap")
+    print("4 - Çoklu öğrenci silme işlemi yap")
     print("5 - Öğrenci sayısı")
     print("6 - Öğrenci ara")
     print("7 - Öğrenci listele")
