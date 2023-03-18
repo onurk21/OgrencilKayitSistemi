@@ -20,17 +20,66 @@ def ogrenciSil(): # Var olan bir öğrenciyi listeden silme işlemini yapar.
             return
     print(f"{adSoyad} isimli öğrenci listede bulunamadı")
 # Öğrenci ekleme veya silme işlemi için kullanıcıya seçenekler sunulur ve kullanıcının seçimine göre işlem yapılır.
-def cokluOgrenciEkleSil():
+def topluOgrenciEkle():
+    while True:
+        ogrenciSayisi = input("Kaç öğrenci eklemek istiyorsunuz? (Çıkmak için 'q' tuşuna basın)")
+        if ogrenciSayisi == 'q':
+            break
+        try:
+            ogrenciSayisi = int(ogrenciSayisi)
+        except ValueError:
+            print("Geçersiz giriş. Lütfen bir sayı girin.")
+            continue
+        for i in range(ogrenciSayisi):
+            adSoyad = input(f"{i+1}. öğrencinin adını ve soyadını girin: ")
+            adSoyad = adSoyad.title()
+            indeks = len(ogrenciListesi) + 1
+            ogrenci = {"ad": adSoyad, "numara": indeks}
+            ogrenciListesi.append(ogrenci)
+            print(f"{adSoyad} isimli öğrenci listeye eklendi. Numarası: {indeks}")
+
+
+def topluOgrenciSil():
+    while True:
+        ogrenciSayisi = input("Kaç öğrenci silmek istiyorsunuz? (Çıkmak için 'q' tuşuna basın)")
+        if ogrenciSayisi == 'q':
+            break
+        try:
+            ogrenciSayisi = int(ogrenciSayisi)
+        except ValueError:
+            print("Geçersiz giriş. Lütfen bir sayı girin.")
+            continue
+        for i in range(ogrenciSayisi):
+            adSoyad = input(f"{i+1}. öğrencinin adını ve soyadını girin: ")
+            adSoyad = adSoyad.title()
+            for ogrenci in ogrenciListesi:
+                if ogrenci["ad"] == adSoyad:
+                    ogrenciListesi.remove(ogrenci)
+                    print(f"{adSoyad} isimli öğrenci listeden silindi.")
+                    break
+            else:
+                print(f"{adSoyad} isimli öğrenci listede bulunamadı.")
+
+
+
+def cokluOgrenciEkleSilandtoplusilekle():
     while True:
         print("1 - Öğrenci ekle")
         print("2 - Öğrenci sil")
-        print("3 - Çıkış yap")
+        print("3 - Toplu öğrenci ekle")
+        print("4 - Toplu öğrenci sil")
+        print("5 - Çıkış yap")
         secim = input("Seçiminiz: ")
         if secim == "1":
             ogrenciEkle()
         elif secim == "2":
             ogrenciSil()
         elif secim == "3":
+            topluOgrenciEkle()
+        elif secim == "4":
+            topluOgrenciSil()
+
+        elif secim == "5":
             break
         else:
             print("Geçersiz seçim.")
@@ -116,7 +165,7 @@ while True:
     elif secim == "2":
         ogrenciSil()
     elif secim == "3":
-        cokluOgrenciEkleSil()
+        cokluOgrenciEkleSilandtoplusilekle()
     elif secim == "4":
         ogrenciSayisi()
     elif secim == "5":
